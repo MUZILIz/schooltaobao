@@ -24,7 +24,7 @@
       <template slot-scope="props">
           <el-button type="primary" @click="NoForbid(props.row)">启用</el-button>
           <el-button type="warning" @click="Forbid(props.row)">禁用</el-button>
-          <el-button type="danger"  @click="DeleteAdmin(props.row.adminId)">删除</el-button>
+          <el-button type="danger"  @click="DeleteAdmin(props.row)">删除</el-button>
       </template>
     </el-table-column> 
   </el-table>
@@ -58,14 +58,14 @@ import axios from 'axios'
         let params ={
           adminId :val.adminId
         }
-        if(val.atypeId>localStorage.getItem('Leve')){
+        if(val.atypeId<localStorage.getItem('Leve')){
           axios.get(url,{params:params}).then(rs => {
                     console.log(rs.data) ;
-                    console.log("NoForbid运行正确");
+                    console.log("DeleteAdmin运行正确");
                     this.$router.go(0)
                 }).catch(error => {
                     console.log(error.data);
-                    console.log("NoForbid运行出错");
+                    console.log("DeleteAdmin运行出错");
                 })
         }else{
           this.$message.error("权限不足")
@@ -87,7 +87,7 @@ import axios from 'axios'
         }
         console.log(val.atypeId)
         console.log(localStorage.getItem('Leve'))
-        if(val.atypeId>localStorage.getItem('Leve')){
+        if(val.atypeId<localStorage.getItem('Leve')){
           axios.get(url,{params:params}).then(rs => {
                     console.log(rs.data) ;
                     console.log("NoForbid运行正确");
@@ -112,7 +112,11 @@ import axios from 'axios'
         let params ={
           adminId :val.adminId
         }
-        if(val.atypeId>localStorage.getItem('Leve')){
+        console.log("权限")
+        console.log(val.atypeId)
+        console.log("权限")
+        console.log(localStorage.getItem('Leve'))
+        if(val.atypeId<localStorage.getItem('Leve')){
           axios.get(url,{params:params}).then(rs => {
                     console.log(rs.data) ;
                     console.log("Forbid运行正确");
